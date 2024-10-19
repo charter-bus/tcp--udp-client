@@ -20,7 +20,17 @@ client.send(b"GET / HTTP/1.1\r\nHost: google.com\r\n\r\n")
 
 response = client.recv(4096)
 
+# Write the response to a file.
+# Separate the header from the body of the response.
+# Write the header to output.txt and the body to HTMLResponseData.html.
+
+with open ("output.txt", "w") as file:
+    file.write(response.decode().split("<")[0])
+
+with open("HTMLResponseData.html", "w") as file:
+    file.write("<HTML" + response.decode().split("<HTML")[1])
+
 print("Receiving data...\n")
 
-print(response.decode())
+# print(response.decode())
 client.close()
